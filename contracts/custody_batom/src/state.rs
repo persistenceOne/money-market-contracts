@@ -6,9 +6,9 @@ use cosmwasm_std::{CanonicalAddr, Deps, Order, StdResult, Storage, Uint128};
 use cosmwasm_storage::{Bucket, ReadonlyBucket, ReadonlySingleton, Singleton};
 use moneymarket::custody::{BAssetInfo, BorrowerResponse};
 
-//batomAccruedRewardsResponse the struct that shows the result of accrued_rewards query
+//BatomAccruedRewardsResponse the struct that shows the result of accrued_rewards query
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema, Default)]
-pub struct batomAccruedRewardsResponse {
+pub struct BatomAccruedRewardsResponse {
     pub rewards: Uint128,
 }
 

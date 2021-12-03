@@ -9,7 +9,7 @@ use crate::contract::{
 };
 use crate::error::ContractError;
 use crate::external::handle::RewardContractExecuteMsg;
-use crate::state::{read_borrower_info, batomAccruedRewardsResponse};
+use crate::state::{read_borrower_info, BatomAccruedRewardsResponse};
 use crate::testing::mock_querier::mock_dependencies;
 
 use cosmwasm_std::testing::{mock_env, mock_info, MOCK_CONTRACT_ADDR};
@@ -583,7 +583,7 @@ fn distribute_rewards() {
 
     deps.querier.set_reward_balance(Uint128::new(10000000));
     deps.querier
-        .set_accrued_rewards(batomAccruedRewardsResponse {
+        .set_accrued_rewards(BatomAccruedRewardsResponse {
             rewards: Uint128::new(10000000),
         });
 
@@ -936,7 +936,7 @@ fn proper_distribute_rewards_with_no_rewards() {
     let msg = ExecuteMsg::DistributeRewards {};
     let info = mock_info("overseer", &[]);
     deps.querier
-        .set_accrued_rewards(batomAccruedRewardsResponse {
+        .set_accrued_rewards(BatomAccruedRewardsResponse {
             rewards: Uint128::new(0),
         });
     let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
@@ -947,7 +947,7 @@ fn proper_distribute_rewards_with_no_rewards() {
     let info = mock_info("overseer", &[]);
 
     deps.querier
-        .set_accrued_rewards(batomAccruedRewardsResponse {
+        .set_accrued_rewards(BatomAccruedRewardsResponse {
             rewards: Uint128::new(10000000),
         });
 

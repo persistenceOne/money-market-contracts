@@ -1,5 +1,5 @@
 use crate::external::handle::RewardContractQueryMsg;
-use crate::state::batomAccruedRewardsResponse;
+use crate::state::BatomAccruedRewardsResponse;
 use cosmwasm_std::testing::{MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR};
 use cosmwasm_std::{
     from_binary, from_slice, to_binary, Addr, Api, BalanceResponse, BankQuery, CanonicalAddr, Coin,
@@ -29,7 +29,7 @@ pub fn mock_dependencies(
 pub struct WasmMockQuerier {
     base: MockQuerier<TerraQueryWrapper>,
     token_querier: TokenQuerier,
-    accrued_rewards: batomAccruedRewardsResponse,
+    accrued_rewards: BatomAccruedRewardsResponse,
     reward_balance: Uint128,
     other_balance: Uint128,
     tax_querier: TaxQuerier,
@@ -202,7 +202,7 @@ impl WasmMockQuerier {
                 msg,
             }) => match from_binary(msg).unwrap() {
                 RewardContractQueryMsg::AccruedRewards { address: _ } => SystemResult::Ok(
-                    ContractResult::from(to_binary(&batomAccruedRewardsResponse {
+                    ContractResult::from(to_binary(&BatomAccruedRewardsResponse {
                         rewards: self.accrued_rewards.rewards,
                     })),
                 ),
@@ -237,7 +237,7 @@ impl WasmMockQuerier {
             base,
             token_querier: TokenQuerier::default(),
             tax_querier: TaxQuerier::default(),
-            accrued_rewards: batomAccruedRewardsResponse::default(),
+            accrued_rewards: BatomAccruedRewardsResponse::default(),
             reward_balance: Uint128::zero(),
             other_balance: Uint128::zero(),
         }
@@ -253,7 +253,7 @@ impl WasmMockQuerier {
         self.tax_querier = TaxQuerier::new(rate, caps);
     }
 
-    pub fn set_accrued_rewards(&mut self, new_state: batomAccruedRewardsResponse) {
+    pub fn set_accrued_rewards(&mut self, new_state: BatomAccruedRewardsResponse) {
         self.accrued_rewards = new_state
     }
 
